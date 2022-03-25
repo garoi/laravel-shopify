@@ -46,6 +46,10 @@ trait AuthController
 
         // Run the action
         [$result, $status] = $authShop($request);
+        if ($request->has('source') and $request->get('source') === 'wp') {
+            $user = User::where('name', $shopDomain->toNative())->get()->first();
+            return redirect('/usernoshopify/'.$user->id.'/dashboard');
+        }
 
         if ($status === null) {
             // Show exception, something is wrong
