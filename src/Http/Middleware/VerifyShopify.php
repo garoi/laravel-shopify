@@ -89,6 +89,12 @@ class VerifyShopify
      */
     public function handle(Request $request, Closure $next)
     {
+        /** @var $shop IShopModel */
+        $shop = auth()->user();
+        if ($shop and $shop->type === 'wp') {
+            return $next($request);
+        }
+        
         // Verify the HMAC (if available)
         $hmacResult = $this->verifyHmac($request);
         if ($hmacResult === false) {
