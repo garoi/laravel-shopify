@@ -27,6 +27,10 @@ class Billable
             /** @var $shop IShopModel */
             $shop = auth()->user();
             if (! $shop->plan && ! $shop->isFreemium() && ! $shop->isGrandfathered()) {
+                if ($shop->type === 'wp') {
+                    return $next($request);
+                }
+                
                 // They're not grandfathered in, and there is no charge or charge was declined... redirect to billing
                 return Redirect::route(
                     Util::getShopifyConfig('route_names.billing'),
