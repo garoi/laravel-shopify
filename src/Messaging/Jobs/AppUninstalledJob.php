@@ -71,23 +71,27 @@ class AppUninstalledJob implements ShouldQueue
 
         // Get the shop
         $shop = $shopQuery->getByDomain($this->domain);
-        $shopId = $shop->getId();
+        
+        $shopIdUser = User::where('name', $this->domain)->get()->first();
+        if ($shopIdUser) {
+            $shopId = $shopIdUser->id;
 
-        // Cancel the current plan
-        $cancelCurrentPlanAction($shopId);
+            // Cancel the current plan
+            $cancelCurrentPlanAction($shopId);
 
-        // Purge shop of token, plan, etc.
-        $shopCommand->clean($shopId);
+            // Purge shop of token, plan, etc.
+            $shopCommand->clean($shopId);
 
-        // Check freemium mode
-        $freemium = Util::getShopifyConfig('billing_freemium_enabled');
-        if ($freemium === true) {
-            // Add the freemium flag to the shop
-            $shopCommand->setAsFreemium($shopId);
+            // Check freemium mode
+            $freemium = Util::getShopifyConfig('billing_freemium_enabled');
+            if ($freemium === true) {
+                // Add the freemium flag to the shop
+                $shopCommand->setAsFreemium($shopId);
+            }
+
+            // Soft delete the shop.
+            $shopCommand->softDelete($shopId);
         }
-
-        // Soft delete the shop.
-        $shopCommand->softDelete($shopId);
 
         return true;
     }
