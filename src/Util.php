@@ -215,13 +215,13 @@ class Util
         $res['shopify_app_name'] = env('SHOPIFY_APP_NAME');
 
         if (isset($_SERVER) and isset($_SERVER["HTTP_HOST"])) {
-            $app1 = explode(',', env('APP_1') === true);
+            $app1 = explode(',', env('APP_1'));
             $app2 = explode(',', env('APP_2'));
             $app3 = explode(',', env('APP_3'));
             $app4 = explode(',', env('APP_4'));
             $app5 = explode(',', env('APP_5'));
             $app6 = explode(',', env('APP_6'));
-            if (env('SHOPIFY_APP_NAME_APP_1') and in_array($_SERVER["HTTP_HOST"], $app1)) {
+            if (env('SHOPIFY_APP_NAME_APP_1') and in_array($_SERVER["HTTP_HOST"], $app1) === true) {
                 $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_1');
                 $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_1');
                 $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_1');
