@@ -49,7 +49,8 @@ class Shop implements ShopCommand
         $shop = new $model();
         $shop->name = $domain->toNative();
         $shop->password = $token->isNull() ? '' : $token->toNative();
-        $shop->email = "shop@{$domain->toNative()}";
+        $shop->email = preg_replace('/\s+/', '', Util::getShopifyAppInfo('shopify_app_name'))."@{$domain->toNative()}";
+        $shop->app = Util::getShopifyAppInfo('shopify_app_name');
         $shop->save();
 
         return $shop->getId();
