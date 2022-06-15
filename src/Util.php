@@ -151,6 +151,116 @@ class Util
 
         return in_array($routeToCheck, $routesToExclude, true) === false;
     }
+    
+    public static function getUserFromAppId($shopId, $appId)
+    {
+        $user = null;
+        if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_1')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_1'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        else if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_2')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_2'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        else if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_3')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_3'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        else if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_4')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_4'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        else if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_5')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_5'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        else if ($appId === 'gid://partners/App/'.env('SHOPIFY_API_APP_6')) {
+            $user = DB::table('users')
+                ->select('*')
+                ->where('app', env('SHOPIFY_APP_NAME_APP_6'))
+                ->where('shop_id', $shopId)
+                ->get()->first();
+
+        }
+        return $user;
+    }
+
+    public static function getShopifyAppInfo(string $key)
+    {
+        $res = array();
+        $res['shopify_api_key'] = env('SHOPIFY_API_KEY');
+        $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET');
+        $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES');
+        $res['shopify_app_name'] = env('SHOPIFY_APP_NAME');
+
+        if (isset($_SERVER) and isset($_SERVER["HTTP_HOST"])) {
+            $app1 = explode(',', env('APP_1') === true);
+            $app2 = explode(',', env('APP_2'));
+            $app3 = explode(',', env('APP_3'));
+            $app4 = explode(',', env('APP_4'));
+            $app5 = explode(',', env('APP_5'));
+            $app6 = explode(',', env('APP_6'));
+            if (env('SHOPIFY_APP_NAME_APP_1') and in_array($_SERVER["HTTP_HOST"], $app1)) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_1');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_1');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_1');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_1');
+            }
+            else if (env('SHOPIFY_APP_NAME_APP_2') and in_array($_SERVER["HTTP_HOST"], $app2) === true) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_2');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_2');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_2');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_2');
+            }
+            else if (env('SHOPIFY_APP_NAME_APP_3') and in_array($_SERVER["HTTP_HOST"], $app3) === true) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_3');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_3');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_3');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_3');
+            }
+            else if (env('SHOPIFY_APP_NAME_APP_4') and in_array($_SERVER["HTTP_HOST"], $app4) === true) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_4');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_4');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_4');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_4');
+            }
+            else if (env('SHOPIFY_APP_NAME_APP_5') and in_array($_SERVER["HTTP_HOST"], $app4) === true) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_5');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_5');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_5');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_5');
+            }
+            else if (env('SHOPIFY_APP_NAME_APP_6') and in_array($_SERVER["HTTP_HOST"], $app4) === true) {
+                $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_6');
+                $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_6');
+                $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_6');
+                $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_6');
+            }
+        }
+
+        return $res[$key];
+    }
 
     /**
      * Get the config value for a key.
