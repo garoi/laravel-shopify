@@ -73,7 +73,10 @@ class AppUninstalledJob implements ShouldQueue
         // Get the shop
         $shop = $shopQuery->getByDomain($this->domain);
         
-        $shopIdUser = User::where('name', $this->domain)->get()->first();
+        $appName = Util::getShopifyAppInfo('shopify_app_name');
+        $shopIdUser = User::where('name', $this->domain)
+            ->where('app', $appName)
+            ->get()->first();
         if ($shopIdUser) {
             $shopId = $shopIdUser->id;
 
