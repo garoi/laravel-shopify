@@ -43,6 +43,7 @@ class Shop implements IShopQuery
 
         return $result
             ->where('id', $shopId->toNative())
+            ->where('app', Util::getShopifyAppInfo('shopify_app_name'))
             ->first();
     }
 
@@ -58,6 +59,7 @@ class Shop implements IShopQuery
 
         return $result
             ->where('name', $domain->toNative())
+            ->where('app', Util::getShopifyAppInfo('shopify_app_name'))
             ->first();
     }
 
@@ -67,6 +69,7 @@ class Shop implements IShopQuery
     public function getAll(array $with = []): Collection
     {
         return $this->model::with($with)
+            ->where('app', Util::getShopifyAppInfo('shopify_app_name'))
             ->get();
     }
 }
