@@ -43,7 +43,6 @@ class Shop implements IShopQuery
 
         return $result
             ->where('id', $shopId->toNative())
-            ->where('app', Util::getShopifyAppInfo('shopify_app_name'))
             ->first();
     }
 
