@@ -257,6 +257,12 @@ class Util
                 $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_6');
                 $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_6');
             }
+        }  
+        else {
+            $res['shopify_api_key'] = env('SHOPIFY_API_KEY_APP_1');
+            $res['shopify_api_secret'] = env('SHOPIFY_API_SECRET_APP_1');
+            $res['shopify_scopes'] = env('SHOPIFY_API_SCOPES_APP_1');
+            $res['shopify_app_name'] = env('SHOPIFY_APP_NAME_APP_1');
         }
 
         return $res[$key];
