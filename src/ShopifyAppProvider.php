@@ -36,6 +36,7 @@ use Osiset\ShopifyApp\Macros\TokenRoute;
 use Osiset\ShopifyApp\Messaging\Jobs\ScripttagInstaller;
 use Osiset\ShopifyApp\Messaging\Jobs\WebhookInstaller;
 use Osiset\ShopifyApp\Services\ApiHelper;
+use Osiset\ShopifyApp\Http\Middleware\IframeProtection;
 use Osiset\ShopifyApp\Services\ChargeHelper;
 use Osiset\ShopifyApp\Storage\Commands\Charge as ChargeCommand;
 use Osiset\ShopifyApp\Storage\Commands\Shop as ShopCommand;
@@ -305,6 +306,8 @@ class ShopifyAppProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('auth.webhook', AuthWebhook::class);
         $this->app['router']->aliasMiddleware('billable', Billable::class);
         $this->app['router']->aliasMiddleware('verify.shopify', VerifyShopify::class);
+        
+        $this->app['router']->pushMiddlewareToGroup('web', IframeProtection::class);
     }
 
     /**
