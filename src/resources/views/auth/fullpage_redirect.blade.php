@@ -6,6 +6,8 @@
 
         <title>Redirecting...</title>
 
+        <script src="https://unpkg.com/@shopify/app-bridge{!! $appBridgeVersion !!}"></script>
+        <script src="https://unpkg.com/@shopify/app-bridge-utils{!! $appBridgeVersion !!}"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
                 var redirectUrl = "{!! $authUrl !!}";
@@ -16,6 +18,18 @@
                     // If the current window is the 'child', change the parent's URL with postMessage
                     normalizedLink = document.createElement('a');
                     normalizedLink.href = redirectUrl;
+
+                    var AppBridge = window['app-bridge'];
+                    var createApp = AppBridge.default;
+                    var Redirect = AppBridge.actions.Redirect;
+                    var app = createApp({
+                        apiKey: "{{!! $apiKey !!}}",
+                        shopOrigin: "{{!! $shopOrigin !!}}",
+                        host: "{{!! $host !!}}",
+                    });
+
+                    var redirect = Redirect.create(app);
+                    redirect.dispatch(Redirect.Action.REMOTE, normalizedLink.href);
                 }
             });
         </script>
