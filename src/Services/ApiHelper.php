@@ -549,7 +549,7 @@ class ApiHelper implements IApiHelper
             },
             // Headers: Referer
             DataSource::REFERER()->toNative() => function (): ?string {
-                $url = parse_url(Request::server('HTTP_REFERER'), PHP_URL_QUERY);
+                $url = parse_url(Request::server('HTTP_REFERER', ''), PHP_URL_QUERY);
                 parse_str($url, $refererQueryParams);
 
                 return Arr::get($refererQueryParams, 'shop');
