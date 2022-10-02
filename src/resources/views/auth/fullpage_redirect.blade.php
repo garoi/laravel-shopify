@@ -18,7 +18,6 @@
                     // If the current window is the 'child', change the parent's URL with postMessage
                     normalizedLink = document.createElement('a');
                     normalizedLink.href = redirectUrl;
-
                     var AppBridge = window['app-bridge'];
                     var createApp = AppBridge.default;
                     var Redirect = AppBridge.actions.Redirect;
@@ -27,7 +26,6 @@
                         shopOrigin: "{{!! $shopOrigin !!}}",
                         host: "{{!! $host !!}}",
                     });
-
                     var redirect = Redirect.create(app);
                     redirect.dispatch(Redirect.Action.REMOTE, normalizedLink.href);
                 }
