@@ -4,6 +4,7 @@ namespace Osiset\ShopifyApp;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use LogicException;
 use Osiset\ShopifyApp\Objects\Values\Hmac;
