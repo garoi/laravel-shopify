@@ -7,7 +7,7 @@
         <title>Redirecting...</title>
 
         <script src="https://unpkg.com/@shopify/app-bridge{!! $appBridgeVersion !!}"></script>
-        <script src="https://dropahint.love/js/app-bridge-utils.js"></script>
+        
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
                 var redirectUrl = "{!! $authUrl !!}";
