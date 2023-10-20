@@ -19,7 +19,6 @@
 
         @if(\Osiset\ShopifyApp\Util::getShopifyConfig('appbridge_enabled'))
             <script src="https://unpkg.com/@shopify/app-bridge{{ \Osiset\ShopifyApp\Util::getShopifyConfig('appbridge_version') ? '@'.config('shopify-app.appbridge_version') : '' }}"></script>
-            <script src="https://dropahint.love/js/app-bridge-utils.js"></script>
             <script
                 @if(\Osiset\ShopifyApp\Util::getShopifyConfig('turbo_enabled'))
                     data-turbolinks-eval="false"
@@ -27,7 +26,7 @@
             >
                 var AppBridge = window['app-bridge'];
                 var actions = AppBridge.actions;
-                var utils = window['app-bridge-utils'];
+                var utils = AppBridge.utilities;
                 var createApp = AppBridge.default;
                 var app = createApp({
                     apiKey: "{{ \Osiset\ShopifyApp\Util::getShopifyConfig('api_key', $shopDomain ?? Auth::user()->name ) }}",
